@@ -38,6 +38,12 @@
         "classmap": [
             "database/seeds",
             "database/factories"
+        ],
+        "exclude-from-classmap": [
+            "vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\ResetsPasswords.php"
+        ],
+        "files":[
+            "app\\VendorOverrides\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\ResetsPasswords.php"
         ]
     },
     "autoload-dev": {
