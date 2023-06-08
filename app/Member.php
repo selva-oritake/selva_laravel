@@ -36,4 +36,7 @@ class Member extends Authenticatable  // ←←←← 注目
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //remember_tokenを使わないようにする
+    protected $rememberTokenName = false;
 }
