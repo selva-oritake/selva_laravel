@@ -2,14 +2,14 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>会員登録フォーム</title>
+<title>会員情報登録</title>
 <link rel="stylesheet" href="member_regist.css">
 
 </head>
 <body>
 
   <div class="member_regist_form">
-    <h1>会員登録フォーム</h1>
+    <h1>会員情報登録</h1>
 
     <form action="/member_regist_check" method="POST">
       @csrf
@@ -62,13 +62,13 @@
       </div>
 
       <div class="email">
-        <p>メールアドレス<textarea name="email" cols="50">{{ old('email') }}</textarea></p>
+        <p>メールアドレス<input name="email" type="text" value="{{ old('email') }}"></p>
         <p class="error">{{ $errors->first('email') }}</p>
       </div>
 
       <div class="btn">
         <input type="submit" value="確認画面へ"><br>
-        <input type="button" value="トップに戻る" onclick="location.href='index.php'">
+        <input type="button" value="トップに戻る" onclick="location.href='/index'">
       </div>
 
     </form>

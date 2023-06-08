@@ -12,11 +12,13 @@ return [
     | as required, but they're a perfect start for most applications.
     |
     */
-
+    
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        //'passwords' => 'users',
+        'passwords' => 'members',
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -38,12 +40,14 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            //'provider' => 'users',
+            'provider' => 'members',
         ],
 
         'api' => [
             'driver' => 'token',
-            'provider' => 'users',
+            //'provider' => 'users',
+            'provider' => 'members',
             'hash' => false,
         ],
     ],
@@ -66,11 +70,12 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        //  追加
+        'members' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Member::class,
         ],
-
+        
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -93,8 +98,16 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        //'users' => [
+        //   'provider' => 'users',
+        //    'table' => 'password_resets',
+        //    'expire' => 60,
+        //    'throttle' => 60,
+        //],
+
+        //追加
+        'members' => [
+            'provider' => 'members',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

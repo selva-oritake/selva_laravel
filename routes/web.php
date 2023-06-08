@@ -22,3 +22,13 @@ Route::post('/member_regist_check', 'MemberRegistController@check');
 Route::get('/member_regist_complete', 'MemberRegistController@complete');
 
 Route::post('/member_regist_complete', 'MemberRegistController@complete');
+
+Route::get('/index', 'IndexController@index');
+
+Route::get('/login', 'LoginController@index');
+
+Route::get('/password/resetsent', 'ResetSentController@index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

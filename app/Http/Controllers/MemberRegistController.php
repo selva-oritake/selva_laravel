@@ -57,7 +57,7 @@ class MemberRegistController extends Controller
 
             'email.required' => '＊メールアドレスを200文字以内で入力して下さい',
             'email.email' => '＊メールアドレスを200文字以内で入力して下さい',
-            'email.max' => '＊＊メールアドレスを200文字以内で入力して下さい',
+            'email.max' => '＊メールアドレスを200文字以内で入力して下さい',
             'email.unique' => '＊このメールアドレスはすでに登録済みです'
         ]);
 

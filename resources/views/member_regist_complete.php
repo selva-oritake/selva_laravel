@@ -12,5 +12,9 @@
     <p>会員登録が完了しました。</p>
   </div>
 
+  <div class="btn">
+    <input type="button" value="トップに戻る" onclick="location.href='/index'">
+  </div>
+
 </body>
 </html>
