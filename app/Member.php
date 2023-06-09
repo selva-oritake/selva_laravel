@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\ResetPassword;
 
 class Member extends Authenticatable  // ←←←← 注目
 {
@@ -39,4 +40,11 @@ class Member extends Authenticatable  // ←←←← 注目
 
     //remember_tokenを使わないようにする
     protected $rememberTokenName = false;
+
+    //メール通知文変更
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
+    }
+    
 }
