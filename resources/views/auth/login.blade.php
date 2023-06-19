@@ -58,6 +58,7 @@
                             </div>
                         </div>
                     </form>
+                    <input type="button" value="トップに戻る" onclick="location.href='/index'">
                 </div>
             </div>
         </div>

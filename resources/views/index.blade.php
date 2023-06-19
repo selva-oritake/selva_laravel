@@ -20,6 +20,7 @@
       @endguest
 
       @auth
+      <input type="button" value="新規商品登録" onclick="location.href='/product_regist'">
       <input type="button" class="dropdown-item" value="ログアウト" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> 
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
           @csrf
@@ -31,6 +32,5 @@
     </div>
   </form>
 </header>
-
 </body>
 </html>

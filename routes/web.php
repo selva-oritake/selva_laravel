@@ -25,9 +25,17 @@ Route::post('/member_regist_complete', 'MemberRegistController@complete');
 
 Route::get('/index', 'IndexController@index');
 
+Route::post('/index', 'ProductRegistController@regist');
+
 Route::get('/login', 'LoginController@index');
 
 Route::get('/password/resetsent', 'ResetSentController@index');
+
+Route::get('/product_regist', 'ProductRegistController@index')->middleware('auth');
+
+Route::post('/get_subcategories', 'ProductRegistController@getSubcategories');
+
+Route::post('/product_regist_check', 'ProductRegistController@check');
 
 Auth::routes();
 
