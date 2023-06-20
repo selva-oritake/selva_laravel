@@ -37,6 +37,8 @@ Route::post('/get_subcategories', 'ProductRegistController@getSubcategories');
 
 Route::post('/product_regist_check', 'ProductRegistController@check');
 
+Route::get('/product_list', 'ProductListController@index');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
