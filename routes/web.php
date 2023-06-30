@@ -35,6 +35,10 @@ Route::get('/product_regist', 'ProductRegistController@index')->middleware('auth
 
 Route::post('/get_subcategories', 'ProductRegistController@getSubcategories');
 
+Route::post('/get_subcategories2', 'ProductListController@getSubcategories');
+
+Route::post('/image_upload', 'ProductRegistController@imageUpload');
+
 Route::post('/product_regist_check', 'ProductRegistController@check');
 
 Route::get('/product_list', 'ProductListController@index');

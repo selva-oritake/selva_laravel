@@ -36,5 +36,8 @@
   </form>
 </header>
 
+<script>
+  sessionStorage.clear()
+</script>
 </body>
 </html>

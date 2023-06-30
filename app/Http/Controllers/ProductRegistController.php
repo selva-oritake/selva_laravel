@@ -10,13 +10,16 @@ use App\ProductSubcategory;
 
 class ProductRegistController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $categories = ProductCategory::all();
         $subcategories = ProductSubcategory::all();
+        // セッションからデータを取得
+        $inputs = $request->session()->get('inputs');
+        $url = session('url');
 
-        return view('product_regist', compact('categories', 'subcategories'));
+        return view('product_regist', compact('categories', 'subcategories', 'inputs', 'url'));
     }
 
     public function getSubcategories(Request $request)
@@ -26,65 +29,83 @@ class ProductRegistController extends Controller
         return response()->json($subcategories);
     }
 
+    public function imageUpload(Request $request)
+    {
+        
+        if ($request->hasFile('image1')) {
+            $filename = $request->file('image1')->getClientOriginalName();
+            $image = $request->file('image1');
+    
+            // 画像をstorage/public配下に保存する
+            $path = $image->storeAs('public', $filename);
+            $path1 = str_replace('public/', 'storage/', $path);
+            $paths['path1'] = $path1;
+        }
+    
+        if ($request->hasFile('image2')) {
+            $filename = $request->file('image2')->getClientOriginalName();
+            $image = $request->file('image2');
+    
+            // 画像をstorage/public配下に保存する
+            $path = $image->storeAs('public', $filename);
+            $path2 = str_replace('public/', 'storage/', $path);
+            $paths['path2'] = $path2;
+        }
+    
+        if ($request->hasFile('image3')) {
+            $filename = $request->file('image3')->getClientOriginalName();
+            $image = $request->file('image3');
+    
+            // 画像をstorage/public配下に保存する
+            $path = $image->storeAs('public', $filename);
+            $path3 = str_replace('public/', 'storage/', $path);
+            $paths['path3'] = $path3;
+        }
+    
+        if ($request->hasFile('image4')) {
+            $filename = $request->file('image4')->getClientOriginalName();
+            $image = $request->file('image4');
+    
+            // 画像をstorage/public配下に保存する
+            $path = $image->storeAs('public', $filename);
+            $path4 = str_replace('public/', 'storage/', $path);
+            $paths['path4'] = $path4;
+        }
+
+        return response()->json($paths);
+    }
+
     public function check(Request $request)
     {
         $user = Auth::user();
 
         $inputs = $request->all();
-        $inputs['image1'] = null;
-        $inputs['image2'] = null;
-        $inputs['image3'] = null;
-        $inputs['image4'] = null;
         $category = ProductCategory::where('id', $inputs['category'])->value('name');
         $sub_category = ProductSubcategory::where('id', $inputs['sub_category'])->value('name');
-
-        // 画像ファイルの保存場所指定
-        if(request('image1')){
-            $filename=request()->file('image1')->getClientOriginalName();
-            $inputs['image1']=request('image1')->storeAs('public', $filename,);
-            $inputs['image1'] = str_replace('public/', 'storage/', $inputs['image1']);
-        }
-        if(request('image2')){
-            $filename2=request()->file('image2')->getClientOriginalName();
-            $inputs['image2']=request('image2')->storeAs('public', $filename2);
-            $inputs['image2'] = str_replace('public/', 'storage/', $inputs['image2']);
-        }
-        if(request('image3')){
-            $filename3=request()->file('image3')->getClientOriginalName();
-            $inputs['image3']=request('image3')->storeAs('public', $filename3);
-            $inputs['image3'] = str_replace('public/', 'storage/', $inputs['image3']);
-        }
-        if(request('image4')){
-            $filename4=request()->file('image4')->getClientOriginalName();
-            $inputs['image4']=request('image4')->storeAs('public', $filename4);
-            $inputs['image4'] = str_replace('public/', 'storage/', $inputs['image4']);
-        }
-
-
         
          //バリデーション
          $request->validate([
             'product_name' => 'required|max:100',
             'category' => 'required|integer|between:1,5',
-            'sub_category' => 'required|integer|between:1,25',
-            'image1' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
-            'image2' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
-            'image3' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
-            'image4' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
+            'sub_category' => 'required|integer' . ($request->category == 1 ? '|between:1,5' : ($request->category == 2 ? '|between:6,10' : ($request->category == 3 ? '|between:11,15' : ($request->category == 4 ? '|between:16,20' : '|between:21,25')))),
             'product_content' => 'required|max:500',
+        ],
+        [
+            'product_name.required' => '＊商品名は必須項目です',
+            'product_name.max' => '＊商品名は100文字以内で入力してください',
+            'product_content.required' => '＊商品説明は必須項目です',
+            'product_content.max' => '＊商品説明は500文字以内で入力してください',
+
         ]);
         
         // データをセッションに保存
         $request->session()->put('inputs', $inputs);
-        
-        
+
         return view('product_regist_check')->with([
             'inputs' => $inputs,
             'category' => $category,
             'sub_category' => $sub_category,
         ]);
-        
-        
     }
 
     public function regist(Request $request)
@@ -102,14 +123,17 @@ class ProductRegistController extends Controller
             'name' => $inputs['product_name'],
             'product_category_id' => $inputs['category'],
             'product_subcategory_id' => $inputs['sub_category'],
-            'image_1' => $inputs['image1'],
-            'image_2' => $inputs['image2'],
-            'image_3' => $inputs['image3'],
-            'image_4' => $inputs['image4'],
+            'image_1' => $inputs['path1'],
+            'image_2' => $inputs['path2'],
+            'image_3' => $inputs['path3'],
+            'image_4' => $inputs['path4'],
             'product_content' => $inputs['product_content'],
         ]);
 
         $request->session()->regenerateToken();
+
+        //セッション削除
+        $request->session()->forget('inputs');
 
         return view('index');
     }
