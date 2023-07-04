@@ -14,6 +14,11 @@ class IndexController extends Controller
         $user = Auth::user();
         //セッション削除
         $request->session()->forget('url');
+        $request->session()->forget('url2');
+        $request->session()->forget('products');
+        $request->session()->forget('inputs2');
+
         return view('index');
     }
+
 }

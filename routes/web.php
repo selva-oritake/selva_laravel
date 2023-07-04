@@ -19,10 +19,6 @@ Route::get('/member_regist_check', 'MemberRegistController@check');
 
 Route::post('/member_regist_check', 'MemberRegistController@check');
 
-Route::get('/member_regist_complete', 'MemberRegistController@complete');
-
-Route::post('/member_regist_complete', 'MemberRegistController@complete');
-
 Route::get('/index', 'IndexController@index');
 
 Route::post('/index', 'ProductRegistController@regist');
@@ -42,6 +38,18 @@ Route::post('/image_upload', 'ProductRegistController@imageUpload');
 Route::post('/product_regist_check', 'ProductRegistController@check');
 
 Route::get('/product_list', 'ProductListController@index');
+
+Route::post('/product_list', 'ProductRegistController@regist');
+
+Route::get('/product_detail', 'ProductDetailController@index');
+
+Route::get('/review_regist', 'ReviewRegistController@index')->middleware('auth');
+
+Route::post('/review_regist_check', 'ReviewRegistCheckController@index')->middleware('auth');
+
+Route::post('/review_regist_complete', 'ReviewRegistCompleteController@index')->middleware('auth');
+
+Route::get('/review_list', 'ReviewListController@index');
 
 Auth::routes();
 

@@ -9,7 +9,7 @@
 <body>
   <div class="product_regist_check">
     <h1>商品登録確認画面</h1>
-    <form action="index" method="POST">
+    <form action="product_list" method="POST">
     @csrf
       <div>
         <span>商品名</span>
@@ -26,28 +26,28 @@
         <div>
           <p>写真1</p>
           @if(isset($inputs['path1']))
-            <img src="{{ asset($inputs['path1']) }}" style="max-width: 200px; max-height: 200px;">
+            <img src="{{ asset($inputs['path1']) }}" style="max-width: 200px; max-height: 200px; object-fit: contain;">
           @endif
         </div>
 
         <div>
           <p>写真2</p>
           @if(isset($inputs['path2']))
-            <img src="{{ asset($inputs['path2']) }}" style="max-width: 200px; max-height: 200px;">
+            <img src="{{ asset($inputs['path2']) }}" style="max-width: 200px; max-height: 200px; object-fit: contain;">
           @endif
         </div>
 
         <div>
           <p>写真3</p>
           @if(isset($inputs['path3']))
-            <img src="{{ asset($inputs['path3']) }}" style="max-width: 200px; max-height: 200px;">
+            <img src="{{ asset($inputs['path3']) }}" style="max-width: 200px; max-height: 200px; object-fit: contain;">
           @endif
         </div>
 
         <div>
           <p>写真4</p>
           @if(isset($inputs['path4']))
-            <img src="{{ asset($inputs['path4']) }}" style="max-width: 200px; max-height: 200px;">
+            <img src="{{ asset($inputs['path4']) }}" style="max-width: 200px; max-height: 200px; object-fit: contain;">
           @endif
         </div>
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\ProductCategory;
 use App\ProductSubcategory;
+use Illuminate\Pagination\Paginator;
 
 class ProductRegistController extends Controller
 {
@@ -135,6 +136,14 @@ class ProductRegistController extends Controller
         //セッション削除
         $request->session()->forget('inputs');
 
-        return view('index');
+        //一覧に表示するための記述
+        $categories = ProductCategory::all();
+        $subcategories = ProductSubcategory::all();
+        $query = Product::query();
+        $query->leftJoin('product_categories', 'products.product_category_id', '=', 'product_categories.id')
+              ->leftJoin('product_subcategories', 'products.product_subcategory_id', '=', 'product_subcategories.id')
+              ->select('products.*', 'product_categories.name as category_name', 'product_subcategories.name as subcategory_name');
+        $products = $query->orderByDesc('products.id')->paginate(10);
+        return view('product_list', compact('categories', 'subcategories', 'products',));
     }
 }

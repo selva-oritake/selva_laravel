@@ -9,6 +9,7 @@
 </head>
 <body>
   <header>
+    <h1>商品一覧</h1>
     @auth
       <input type="button" value="新規商品登録" onclick="location.href='/product_regist'">
     @endauth
@@ -38,12 +39,33 @@
 
   <div style="padding: 10px 0;">
     @foreach ($products as $product)
-      <div style="border-top: 1px solid #000; padding: 10px 0;">
-        <p>{{ $product->category_name }}>{{ $product->subcategory_name }}</p>
-        <p>商品名：{{ $product->name }}</p>
-        @if(isset($product->image_1))
-          <img src="{{ $product->image_1 }}" style="max-width: 100px; max-height: 100px;">
-        @endif
+      <div style="border-top: 1px solid #000; padding: 10px;  display: flex;">
+        <div style="width: 100px;">
+          @if(isset($product->image_1))
+            <img src="{{ $product->image_1 }}" style="max-width: 100px; max-height: 100px;">
+          @endif
+        </div>
+
+        <div style="margin-left: 10px;">
+          <p>{{ $product->category_name }}>{{ $product->subcategory_name }}</p>
+          <a href='/product_detail?id={{ $product->id }}'>{{ $product->name }}</a>
+          <span>
+            @if($product->avg_evaluation == 1)
+              ★
+            @elseif($product->avg_evaluation == 2)
+              ★★
+            @elseif($product->avg_evaluation == 3)
+              ★★★
+            @elseif($product->avg_evaluation == 4)
+              ★★★★
+            @elseif($product->avg_evaluation == 5)
+              ★★★★★
+            @endif
+          </span>
+          <span>{{ $product->avg_evaluation}}</span>
+          <input type="button" value="詳細" onclick="location.href='/product_detail?id={{ $product->id }}'">
+        </div>
+        
       </div>
     @endforeach
   </div>

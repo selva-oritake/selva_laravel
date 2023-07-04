@@ -8,6 +8,7 @@ use App\Product;
 use App\ProductCategory;
 use App\ProductSubcategory;
 use Illuminate\Pagination\Paginator;
+use App\Review;
 
 class ProductListController extends Controller
 {
@@ -16,11 +17,18 @@ class ProductListController extends Controller
         $user = Auth::user();
         
         $url = url()->current();
+        $url2 = url()->full();
         session(['url' => $url]);
+        session(['url2' => $url2]);
         
         $categories = ProductCategory::all();
         $subcategories = ProductSubcategory::all();
         $query = Product::query();
+        
+        //総合評価
+        $query2 = Review::query();
+        $query2->selectRaw('product_id, CEIL(AVG(reviews.evaluation)) as avg_evaluation')
+               ->groupBy('reviews.product_id');
 
         //検索機能
          // カテゴリ検索
@@ -46,9 +54,18 @@ class ProductListController extends Controller
         
         $query->leftJoin('product_categories', 'products.product_category_id', '=', 'product_categories.id')
               ->leftJoin('product_subcategories', 'products.product_subcategory_id', '=', 'product_subcategories.id')
-              ->select('products.*', 'product_categories.name as category_name', 'product_subcategories.name as subcategory_name');
-    
+              ->leftJoinSub($query2, 'reviews', function ($join) {
+                $join->on('products.id', '=', 'reviews.product_id');
+              })
+              ->select('products.*', 'product_categories.name as category_name', 'product_subcategories.name as subcategory_name', 'reviews.avg_evaluation as avg_evaluation');
+              
+
+
         $products = $query->orderByDesc('products.id')->paginate(10);
+        session(['products' => $products]);
+
+        $request->session()->forget('inputs');
+        $request->session()->forget('inputs2');
     
         return view('product_list', compact('categories', 'subcategories', 'products',));
     }

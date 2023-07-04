@@ -30,6 +30,13 @@
             @endif
 
             {{-- Array Of Links --}}
+            
+            @php
+                $middlePageOffset = floor(($maxPages - 1) / 2);
+                $startPage = max($currentPage - $middlePageOffset, 1);
+                $endPage = min($startPage + $maxPages - 1, $lastPage);
+            @endphp
+
             @for ($page = $startPage; $page <= $endPage; $page++)
                 @if ($page == $paginator->currentPage())
                     <li class="page-item active" aria-current="page"><span class="page-link bg-success border-success">{{ $page }}</span></li>
