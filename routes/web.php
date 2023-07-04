@@ -51,6 +51,12 @@ Route::post('/review_regist_complete', 'ReviewRegistCompleteController@index')->
 
 Route::get('/review_list', 'ReviewListController@index');
 
+Route::get('/mypage', 'MypageController@index')->middleware('auth');
+
+Route::get('/withdrawal', 'WithdrawalController@index')->middleware('auth');
+
+Route::delete('/withdrawal', 'WithdrawalController@withdrawal')->name('MemberDelete')->middleware('auth');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

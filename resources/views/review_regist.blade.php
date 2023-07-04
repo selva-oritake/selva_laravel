@@ -18,23 +18,11 @@
         <div>
           @if(isset($inputs['image_1']))
             <img src="{{ asset($inputs['image_1']) }}" style="max-width: 200px; max-height: 200px; object-fit: contain;">
-          @endif
-        </div>
-
-        <div>
-          @if(isset($inputs['image_2']))
+          @elseif(!isset($inputs['image_1']) && isset($inputs['image_2']))
             <img src="{{ asset($inputs['image_2']) }}" style="max-width: 200px; max-height: 200px; object-fit: contain;">
-          @endif
-        </div>
-
-        <div>
-          @if(isset($inputs['image_3']))
+          @elseif(!isset($inputs['image_1']) && !isset($inputs['image_2']) && isset($inputs['image_3']))
             <img src="{{ asset($inputs['image_3']) }}" style="max-width: 200px; max-height: 200px; object-fit: contain;">
-          @endif
-        </div>
-
-        <div>
-          @if(isset($inputs['image_4']))
+          @elseif(!isset($inputs['image_1']) && !isset($inputs['image_2']) && !isset($inputs['image_3']) && isset($inputs['image_4']))
             <img src="{{ asset($inputs['image_4']) }}" style="max-width: 200px; max-height: 200px; object-fit: contain;">
           @endif
         </div>
