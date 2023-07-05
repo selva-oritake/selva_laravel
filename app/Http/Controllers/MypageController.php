@@ -10,6 +10,8 @@ class MypageController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        //セッション削除
+        $request->session()->forget('inputs');
 
         return view('mypage', compact('user'));
     }

@@ -19,6 +19,8 @@ Route::get('/member_regist_check', 'MemberRegistController@check');
 
 Route::post('/member_regist_check', 'MemberRegistController@check');
 
+Route::post('/member_regist_complete', 'MemberRegistController@complete');
+
 Route::get('/index', 'IndexController@index');
 
 Route::post('/index', 'ProductRegistController@regist');
@@ -56,6 +58,28 @@ Route::get('/mypage', 'MypageController@index')->middleware('auth');
 Route::get('/withdrawal', 'WithdrawalController@index')->middleware('auth');
 
 Route::delete('/withdrawal', 'WithdrawalController@withdrawal')->name('MemberDelete')->middleware('auth');
+
+Route::get('/member_edit', 'MemberEditController@index')->middleware('auth');
+
+Route::post('/member_edit', 'MemberEditController@edit')->middleware('auth');
+
+Route::get('/member_edit_check', 'MemberEditController@check')->middleware('auth');
+
+Route::post('/member_edit_check', 'MemberEditController@regist')->middleware('auth');
+
+Route::get('/password_edit', 'PasswordEditController@index')->middleware('auth');
+
+Route::post('/password_edit', 'PasswordEditController@update')->middleware('auth');
+
+Route::get('/email_edit', 'EmailEditController@index')->middleware('auth');
+
+Route::post('/email_edit', 'EmailEditController@auth')->middleware('auth');
+
+Route::get('/email_edit_auth', 'EmailEditController@check')->middleware('auth');
+
+Route::post('/email_edit_auth', 'EmailEditController@update')->middleware('auth');
+
+
 
 Auth::routes();
 

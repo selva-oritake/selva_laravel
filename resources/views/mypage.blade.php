@@ -43,12 +43,24 @@
         @endif
       </tr>
       <tr>
+        <td></td>
+        <td><input type="button" value="会員情報変更" onclick="location.href='/member_edit'"></td>
+      </tr>
+      <tr>
         <td>パスワード</td>
         <td>セキュリティのため表示</td>
       </tr>
       <tr>
+        <td></td>
+        <td><input type="button" value="パスワード変更" onclick="location.href='/password_edit'"></td>
+      </tr>
+      <tr>
         <td>メールアドレス</td>
         <td>{{ $user->email }}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="button" value="メールアドレス変更" onclick="location.href='/email_edit'"></td>
       </tr>
     </table>
   </div>
