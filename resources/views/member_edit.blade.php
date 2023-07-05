@@ -14,29 +14,29 @@
       @csrf
       <div class ="name">
         <span>氏名</span>
-        <span>姓<input name="name_sei" type="text" value="{{ old('name_sei') }}"></span>
-        <span>名<input name="name_mei" type="text" value="{{ old('name_mei') }}"></span>
-      @error('name_sei')
-        <p class="error">＊姓を20文字以内で入力してください</p>
-      @enderror
-      @error('name_mei')
-        <p class="error">＊名を20文字以内で入力してください</p>
-      @enderror
+        <span>姓<input name="name_sei" type="text" value="{{ old('name_sei') ?? $user['name_sei']}}"></span>
+        <span>名<input name="name_mei" type="text" value="{{ old('name_mei') ?? $user['name_mei']}}"></span>
+        @foreach ($errors->get('name_sei') as $message)
+        <p class="error">{{ $message }}</p>
+        @endforeach
+        @foreach ($errors->get('name_mei') as $message)
+        <p class="error">{{ $message }}</p>
+        @endforeach
       </div>
       
 
       <div class ="nickname">
-        <p>ニックネーム<input name="nickname" type="text" value="{{ old('nickname') }}"></p>
-      @error('nickname')
-        <p class="error">＊ニックネームを10文字以内で入力してください</p>
-      @enderror
+        <p>ニックネーム<input name="nickname" type="text" value="{{ old('nickname') ?? $user['nickname']}}"></p>
+        @foreach ($errors->get('nickname') as $message)
+        <p class="error">{{ $message }}</p>
+        @endforeach
       </div>
 
       <div class="gender">
         <p>性別</p>
         <input class="radio_button" type="hidden" name="gender" value="" checked>
         @foreach(config('master.gender') as $index => $value)
-        <p><input type="radio" name="gender" value="{{ $index }}" {{ old("gender") == $index ? "checked" : "" }}>{{ $value ?? "" }}</p>
+        <p><input type="radio" name="gender" value="{{ $index }}" {{ ($user['gender'] == $index || old("gender") == $index) ? "checked" : "" }}>{{ $value ?? "" }}</p>
         @endforeach
       </div>
       @error('gender')

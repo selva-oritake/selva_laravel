@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Review;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewRegistCompleteController extends Controller
 {
     public function index(Request $request)
     {
+        $user = Auth::user();
         // セッションからデータを取得
         $inputs = $request->session()->get('inputs');
         $inputs2 = $request->session()->get('inputs2');
@@ -16,7 +18,7 @@ class ReviewRegistCompleteController extends Controller
         $review = new Review;
         // データベースに値をinsert
         $review->create([
-            'member_id' => $inputs['member_id'],
+            'member_id' => $user['id'],
             'product_id' => $inputs['id'],
             'evaluation' => $inputs2['evaluation'],
             'comment' => $inputs2['comment'],

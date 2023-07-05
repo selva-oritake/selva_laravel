@@ -12,7 +12,7 @@ class MemberEditController extends Controller
     {
         $user = Auth::user();
 
-        return view('member_edit');
+        return view('member_edit', compact('user'));
     }
 
     public function edit(Request $request)
@@ -22,7 +22,15 @@ class MemberEditController extends Controller
             'name_sei' => 'required|max:20',
             'name_mei' => 'required|max:20',
             'nickname' => 'required|max:10',
-            'gender' => 'required|integer|between:1,2',        
+            'gender' => 'required|integer|between:1,2',  
+        ],
+        [
+            'name_sei.required' => '＊姓は入力必須です',
+            'name_sei.max' => '＊姓を20文字以内で入力してください',
+            'name_mei.required' => '＊名は入力必須です',
+            'name_mei.max' => '＊名を20文字以内で入力してください',
+            'nickname.required' => '＊ニックネームは入力必須です',
+            'nickname.max' => '＊ニックネームを10文字以内で入力してください'
         ]);
 
         // データをセッションに保存

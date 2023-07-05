@@ -79,7 +79,19 @@ Route::get('/email_edit_auth', 'EmailEditController@check')->middleware('auth');
 
 Route::post('/email_edit_auth', 'EmailEditController@update')->middleware('auth');
 
+Route::get('/myreview', 'MyreviewController@index')->middleware('auth');
 
+Route::get('/myreview_edit', 'MyreviewEditController@index')->middleware('auth');
+
+Route::post('/myreview_edit', 'MyreviewEditController@edit')->middleware('auth');
+
+Route::get('/myreview_edit_check', 'MyreviewEditController@check')->middleware('auth');
+
+Route::post('/myreview_edit_check', 'MyreviewEditController@update')->middleware('auth');
+
+Route::get('/myreview_delete', 'MyreviewDeleteController@index')->middleware('auth');
+
+Route::delete('/myreview_delete', 'MyreviewDeleteController@delete')->name('MyreviewDelete')->middleware('auth');
 
 Auth::routes();
 

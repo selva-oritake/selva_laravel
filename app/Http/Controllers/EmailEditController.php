@@ -8,6 +8,7 @@ use App\Member;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AuthCodeMail;
+use Illuminate\Support\Facades\Cache;
 
 class EmailEditController extends Controller
 {
@@ -20,13 +21,18 @@ class EmailEditController extends Controller
 
     public function auth (Request $request)
     {
+        //メールの多重送信対策
+        if (!Cache::add('used_token.'.$request->session()->token(), 1, 1)){
+            return redirect()->action("EmailEditController@check");
+        }
+
         //バリデーション
         $request->validate([
-            'email' => 'required|email|max:200|unique:members,email',     
+            'email' => 'required|email:filter,dns|max:200|unique:members,email',     
         ],
         [
-            'email.required' => '＊メールアドレスを200文字以内で入力して下さい',
-            'email.email' => '＊メールアドレスを200文字以内で入力して下さい',
+            'email.required' => '＊メールアドレスは必須です',
+            'email.email' => '＊メールアドレス形式で入力してください',
             'email.max' => '＊メールアドレスを200文字以内で入力して下さい',
             'email.unique' => '＊このメールアドレスはすでに登録済みです'
         ]);
@@ -48,7 +54,6 @@ class EmailEditController extends Controller
 
     public function check()
     {
-        
         return view('email_edit_auth');
     }
 
@@ -79,8 +84,6 @@ class EmailEditController extends Controller
 
         // 二重送信を防ぐため token を再生成
         $request->session()->regenerateToken();
-
-        
 
         return redirect()->action("MypageController@index");
     }

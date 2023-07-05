@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <title>マイページ</title>
 </head>
@@ -61,6 +62,10 @@
       <tr>
         <td></td>
         <td><input type="button" value="メールアドレス変更" onclick="location.href='/email_edit'"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="button" value="商品レビュー管理" onclick="location.href='/myreview'" style="margin-top: 40px;"></td>
       </tr>
     </table>
   </div>
