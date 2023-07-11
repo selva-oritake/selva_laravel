@@ -93,6 +93,54 @@ Route::get('/myreview_delete', 'MyreviewDeleteController@index')->middleware('au
 
 Route::delete('/myreview_delete', 'MyreviewDeleteController@delete')->name('MyreviewDelete')->middleware('auth');
 
+use App\Http\Controllers\Admin;
+
+//管理画面
+
+
+
+Route::prefix('admin')->namespace('Admin')->group(function() {
+    Route::get('/login', 'LoginController@index')->name('admin.login');
+
+    Route::post('/login', 'LoginController@login');
+
+    Route::get('/logout', 'LoginController@logout');
+
+    Route::get('/member_list', [Admin\MemberListController::class, 'index']);
+
+    Route::get('/index',[Admin\IndexController::class, 'index'])->name('admin.index');
+
+    Route::get('/member_regist', 'MemberRegistController@index');
+
+    Route::post('/member_regist', 'MemberRegistController@post');
+
+    Route::get('/member_regist_check', 'MemberRegistController@check');
+
+    Route::post('/member_regist_check', 'MemberRegistController@regist');
+
+    Route::get('/member_edit', 'MemberEditController@index');
+
+    Route::post('/member_edit', 'MemberEditController@post');
+
+    Route::get('/member_edit_check', 'MemberEditController@check');
+
+    Route::post('/member_edit_check', 'MemberEditController@update');
+
+    Route::get('/member_detail', 'MemberDetailController@index');
+
+    Route::post('/member_detail', 'MemberDetailController@delete');
+
+});
+
+Route::prefix('admin')->middleware('auth.admin')->group(function () {
+    
+
+    
+});
+
+
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

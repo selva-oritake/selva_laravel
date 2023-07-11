@@ -18,11 +18,20 @@
             {{-- Pagination Elements --}}
             @php
                 $maxPages = 3; // 最大表示ページ数
-                $middlePages = ceil($maxPages / 2);
                 $currentPage = $paginator->currentPage();
                 $lastPage = $paginator->lastPage();
-                $startPage = max($currentPage - $middlePages, 1);
-                $endPage = min($startPage + $maxPages - 1, $lastPage);
+
+                // 最終ページに来た場合の特別な処理
+                if ($currentPage == $lastPage) {
+                    $startPage = max($lastPage - 2, 1);
+                    $endPage = $lastPage;
+                } elseif ($currentPage == 1){
+                    $startPage = 1;
+                    $endPage = min($currentPage + 2, $lastPage);
+                }else {
+                    $startPage = max($currentPage - 1, 1);
+                    $endPage = min($currentPage + 1, $lastPage);
+                }
             @endphp
 
             @if ($startPage > 1)
@@ -30,12 +39,6 @@
             @endif
 
             {{-- Array Of Links --}}
-            
-            @php
-                $middlePageOffset = floor(($maxPages - 1) / 2);
-                $startPage = max($currentPage - $middlePageOffset, 1);
-                $endPage = min($startPage + $maxPages - 1, $lastPage);
-            @endphp
 
             @for ($page = $startPage; $page <= $endPage; $page++)
                 @if ($page == $paginator->currentPage())
