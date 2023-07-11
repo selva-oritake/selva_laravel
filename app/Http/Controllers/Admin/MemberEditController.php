@@ -14,6 +14,8 @@ class MemberEditController extends Controller
     //入力フォーム
     public function index(Request $request)
     {
+        $isEdit = true; // 会員編集モード
+
         // セッションからデータを取得
         $inputs = $request->session()->get('inputs');
         
@@ -29,7 +31,7 @@ class MemberEditController extends Controller
         $request->session()->put('currentId', $currentId);
 
 
-        return view('admin/member_edit', compact('result', 'inputs'));
+        return view('admin/member_regist', compact('result', 'inputs', 'isEdit', 'currentId'));
     }
 
     public function post(Request $request)
@@ -83,12 +85,14 @@ class MemberEditController extends Controller
     //確認
     public function check(Request $request)
     {
+        $isEdit = true; // 会員編集モード
+
         // セッションからデータを取得
         $inputs = $request->session()->get('inputs');
         $currentId = $request->session()->get('currentId');
 
 
-        return view('admin/member_edit_check', compact('inputs', 'currentId'));
+        return view('admin/member_regist_check', compact('inputs', 'currentId', 'isEdit'));
     }
     
 
