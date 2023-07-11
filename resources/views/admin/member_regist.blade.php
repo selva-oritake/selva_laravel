@@ -23,8 +23,8 @@
         @csrf
         <div class ="name">
           <span>氏名</span>
-          <span>姓<input name="name_sei" type="text" value="{{ old('name_sei') ?? $result['name_sei'] }}"></span>
-          <span>名<input name="name_mei" type="text" value="{{ old('name_mei') ?? $result['name_mei'] }}"></span>
+          <span>姓<input name="name_sei" type="text" value="{{ old('name_sei') ?? $inputs['name_sei'] ?? $result['name_sei'] }}"></span>
+          <span>名<input name="name_mei" type="text" value="{{ old('name_mei') ?? $inputs['name_mei'] ?? $result['name_mei'] }}"></span>
         @error('name_sei')
           <p class="error">＊姓を20文字以内で入力してください</p>
         @enderror
@@ -35,7 +35,7 @@
         
   
         <div class ="nickname">
-          <p>ニックネーム<input name="nickname" type="text" value="{{ old('nickname') ?? $result['nickname'] }}"></p>
+          <p>ニックネーム<input name="nickname" type="text" value="{{ old('nickname') ?? $inputs['nickname'] ?? $result['nickname'] }}"></p>
         @error('nickname')
           <p class="error">＊ニックネームを10文字以内で入力してください</p>
         @enderror
@@ -45,7 +45,7 @@
           <p>性別</p>
           <input class="radio_button" type="hidden" name="gender" value="" checked>
           @foreach(config('master.gender') as $index => $value)
-          <p><input type="radio" name="gender" value="{{ $index }}" {{ ($result['gender'] == $index || old("gender") == $index) ? "checked" : "" }}>{{ $value ?? "" }}</p>
+          <p><input type="radio" name="gender" value="{{ $index }}" {{ (($inputs && $inputs['gender'] == $index) || ($result && $result['gender'] == $index) || old("gender") == $index) ? "checked" : "" }}>{{ $value ?? "" }}</p>
           @endforeach
         </div>
         @error('gender')
@@ -70,7 +70,7 @@
         </div>
   
         <div class="email">
-          <p>メールアドレス<input name="email" type="text" value="{{ old('email') ?? $result['email'] }}"></p>
+          <p>メールアドレス<input name="email" type="text" value="{{ old('email') ?? $inputs['email'] ?? $result['email'] }}"></p>
           <p class="error">{{ $errors->first('email') }}</p>
         </div>
   
