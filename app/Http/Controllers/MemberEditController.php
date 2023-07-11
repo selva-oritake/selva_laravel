@@ -62,6 +62,8 @@ class MemberEditController extends Controller
             'gender' => $inputs['gender'],
         ]);
 
+        
+
         // 二重送信を防ぐため token を再生成
         $request->session()->regenerateToken();
 
