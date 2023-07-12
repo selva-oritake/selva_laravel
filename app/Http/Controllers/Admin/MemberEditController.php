@@ -26,7 +26,7 @@ class MemberEditController extends Controller
         }
         $query = Member::query();
         $query->where('id', $currentId);
-        $result = $query->get()->first();;
+        $result = $query->get()->first();
 
         $request->session()->put('currentId', $currentId);
 

@@ -26,7 +26,9 @@
     </div>
   </header>
 
-  <input type="button" value="会員一覧" onclick="location.href='member_list'"> 
+  <input type="button" value="会員一覧" onclick="location.href='member_list'">
+  <input type="button" value="商品カテゴリ一覧" onclick="location.href='product_category_list'">
+  <input type="button" value="商品一覧" onclick="location.href='product_list'">
 
 </body>
 </html>
