@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>カテゴリ情報確認画面</title>
-<link rel="stylesheet" href="member_regist_check.css">
+<link rel="stylesheet" href="">
 
 </head>
 <body>

@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    protected function guard()
+    {
+        return \Auth::guard('admin'); //管理者認証のguardを指定
+    }
+
     public function index()
     {
         return view('/admin/login');
@@ -45,11 +50,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('admin')->logout();
-    
-        $request->session()->invalidate();
-    
-        $request->session()->regenerateToken();
+        $this->guard()->logout();
     
         return redirect('admin/login');
     }

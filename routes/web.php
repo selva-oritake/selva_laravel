@@ -106,9 +106,14 @@ Route::prefix('admin')->namespace('Admin')->group(function() {
 
     Route::get('/logout', 'LoginController@logout');
 
+    
+});
+
+Route::prefix('admin')->namespace('Admin')->middleware('auth.admin:admin')->group(function () {
+    
     Route::get('/member_list', [Admin\MemberListController::class, 'index']);
 
-    Route::get('/index',[Admin\IndexController::class, 'index'])->name('admin.index');
+    Route::get('/index', 'IndexController@index')->name('admin.index');
 
     Route::get('/member_regist', 'MemberRegistController@index');
 
@@ -130,11 +135,71 @@ Route::prefix('admin')->namespace('Admin')->group(function() {
 
     Route::post('/member_detail', 'MemberDetailController@delete');
 
-});
+    Route::get('/product_category_list', 'ProductCategoryListController@index');
 
-Route::prefix('admin')->middleware('auth.admin')->group(function () {
-    
+    Route::get('/product_category_regist', 'ProductCategoryRegistController@index');
 
+    Route::post('/product_category_regist', 'ProductCategoryRegistController@post');
+
+    Route::get('/product_category_regist_check', 'ProductCategoryRegistController@check');
+
+    Route::post('/product_category_regist_check', 'ProductCategoryRegistController@regist');
+
+    Route::get('/product_category_edit', 'ProductCategoryEditController@index');
+
+    Route::post('/product_category_edit', 'ProductCategoryEditController@post');
+
+    Route::get('/product_category_edit_check', 'ProductCategoryEditController@check');
+
+    Route::post('/product_category_edit_check', 'ProductCategoryEditController@update');
+
+    Route::get('/product_category_detail', 'ProductCategoryDetailController@index');
+
+    Route::post('/product_category_detail', 'ProductCategoryDetailController@delete');
+
+    Route::get('/product_list', 'ProductListController@index');
+
+    Route::get('/product_regist', 'ProductRegistController@index');
+
+    Route::post('/product_regist', 'ProductRegistController@post');
+
+    Route::get('/product_regist_check', 'ProductRegistController@check');
+
+    Route::post('/product_regist_check', 'ProductRegistController@regist');
+
+    Route::get('/product_edit', 'ProductEditController@index');
+
+    Route::post('/product_edit', 'ProductEditController@post');
+
+    Route::get('/product_edit_check', 'ProductEditController@check');
+
+    Route::post('/product_edit_check', 'ProductEditController@update');
+
+    Route::get('/product_detail', 'ProductDetailController@index');
+
+    Route::post('/product_detail', 'ProductDetailController@delete');
+
+    Route::get('/review_detail', 'ReviewDetailController@index');
+
+    Route::post('/review_detail', 'ReviewDetailController@delete');
+
+    Route::get('/review_list', 'ReviewListController@index');
+
+    Route::get('/review_regist', 'ReviewRegistController@index');
+
+    Route::post('/review_regist', 'ReviewRegistController@post');
+
+    Route::get('/review_regist_check', 'ReviewRegistController@check');
+
+    Route::post('/review_regist_check', 'ReviewRegistController@regist');
+
+    Route::get('/review_edit', 'ReviewEditController@index');
+
+    Route::post('/review_edit', 'ReviewEditController@post');
+
+    Route::get('/review_edit_check', 'ReviewEditController@check');
+
+    Route::post('/review_edit_check', 'ReviewEditController@update');
     
 });
 

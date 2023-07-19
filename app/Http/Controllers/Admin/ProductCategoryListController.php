@@ -26,7 +26,7 @@ class ProductCategoryListController extends Controller
         // フリーワード検索
         $keyword = $request->input('keyword');
         if ($keyword) {
-            $query->rightJoin('product_subcategories', 'product_categories.id', '=', 'product_subcategories.product_category_id')
+            $query->leftJoin('product_subcategories', 'product_categories.id', '=', 'product_subcategories.product_category_id')
                   ->select('product_categories.*', 'product_subcategories.name as subcategory_name')
                   ->where(function ($q) use ($keyword) {
                 $q->where('product_categories.name', 'LIKE', '%'.$keyword.'%')

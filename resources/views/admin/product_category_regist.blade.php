@@ -21,7 +21,7 @@
         @csrf
         <table>
           <tr>
-            <td>ID</td>
+            <td>商品大カテゴリID</td>
             <td>{{ $currentId }}</td>
           </tr>
           <tr>
@@ -69,7 +69,7 @@
         @csrf
         <table>
           <tr>
-            <td>ID</td>
+            <td>商品大カテゴリID</td>
             <td>登録後に自動採番</td>
           </tr>
           <tr>

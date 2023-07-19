@@ -11,7 +11,7 @@ class IndexController extends Controller
     //トップ画面
     public function index(Request $request)
     {
-        $user = Auth::user('admin');
+        $user = Auth::guard('admin')->user();
 
         return view('admin/index', compact('user'));
     }
