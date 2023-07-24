@@ -10,7 +10,7 @@
 @if (isset($isEdit) && $isEdit)
 <header>
     <h2>商品レビュー編集確認</h2>
-    <input type="button" value="トップへ戻る" onclick="location.href='index'">
+    <input type="button" value="一覧へ戻る" onclick="location.href='{{ $url }}'">
   </header>
     
   <div>
@@ -52,14 +52,14 @@
         </div>
         <div class="btn">
           <input type="submit" value="編集完了">
-          <input type="button" value="前に戻る" onclick="location.href='review_edit'">
+          <input type="button" value="前に戻る" onclick="location.href='review_edit?id={{ $id }}'">
         </div>
     </form>
   </div>
 @else
   <header>
     <h2>商品レビュー登録確認</h2>
-    <input type="button" value="トップへ戻る" onclick="location.href='index'">
+    <input type="button" value="一覧へ戻る" onclick="location.href='review_list'">
   </header>
     
   <div>

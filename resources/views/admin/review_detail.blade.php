@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>商品レビュー詳細</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 </head>
 <body>
   <header>
     <h2>商品レビュー詳細</h2>
-    <input type="button" value="トップへ戻る" onclick="location.href='index'">
+    <input type="button" value="一覧へ戻る" onclick="location.href='{{ $url }}'">
   </header>
     
   <div>

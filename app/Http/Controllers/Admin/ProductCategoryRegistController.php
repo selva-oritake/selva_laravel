@@ -47,7 +47,7 @@ class ProductCategoryRegistController extends Controller
             'sub_category8.max' => '＊小カテゴリは20文字以内で入力してください',
             'sub_category9.max' => '＊小カテゴリは20文字以内で入力してください',
             'sub_category10.max' => '＊小カテゴリは20文字以内で入力してください',
-            'sub_categories.required_without_all' => 'sub_categoriesは一つ以上入力してください。'
+            'sub_categories.required_without_all' => '＊小カテゴリは一つ以上入力してください'
         ]);
 
         // データをセッションに保存

@@ -13,6 +13,10 @@ class IndexController extends Controller
     {
         $user = Auth::guard('admin')->user();
 
+        $request->session()->forget('url');
+        $request->session()->forget('product');
+        $request->session()->forget('currentId');
+
         return view('admin/index', compact('user'));
     }
 

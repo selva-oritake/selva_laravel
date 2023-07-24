@@ -18,6 +18,7 @@ class MemberEditController extends Controller
 
         // セッションからデータを取得
         $inputs = $request->session()->get('inputs');
+        $url = session('url');
         
         if(request()->has('id')){
             $currentId = request()->query('id');
@@ -31,7 +32,7 @@ class MemberEditController extends Controller
         $request->session()->put('currentId', $currentId);
 
 
-        return view('admin/member_regist', compact('result', 'inputs', 'isEdit', 'currentId'));
+        return view('admin/member_regist', compact('result', 'inputs', 'isEdit', 'currentId', 'url'));
     }
 
     public function post(Request $request)
@@ -78,7 +79,9 @@ class MemberEditController extends Controller
         $request->session()->put('inputs', $request->all());
         $inputs = $request;
 
-        return redirect()->action("Admin\MemberEditController@check");
+        // 編集入力画面へのリダイレクト時にクエリパラメータを引き継ぐ
+        $id = $request->query('id');
+        return redirect()->action('Admin\MemberEditController@check', ['id' => $id]);
     }
 
 
@@ -90,9 +93,11 @@ class MemberEditController extends Controller
         // セッションからデータを取得
         $inputs = $request->session()->get('inputs');
         $currentId = $request->session()->get('currentId');
+        $url = session('url');
 
+        $id = $request->query('id');
 
-        return view('admin/member_regist_check', compact('inputs', 'currentId', 'isEdit'));
+        return view('admin/member_regist_check', compact('inputs', 'currentId', 'isEdit', 'url', 'id'));
     }
     
 

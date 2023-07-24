@@ -12,6 +12,8 @@ class ProductListController extends Controller
     public function index(Request $request)
     {
         $request->session()->forget('inputs');
+        $url = url()->full();
+        session(['url' => $url]);
 
         $query = Product::query();
 
@@ -25,8 +27,10 @@ class ProductListController extends Controller
         // フリーワード検索
         $keyword = $request->input('keyword');
         if ($keyword) {
-            $query->where('products.name', 'LIKE', '%'.$keyword.'%')
-                  ->orWhere('products.product_content', 'LIKE', '%'.$keyword.'%');
+            $query->where(function ($q) use ($keyword) {
+                $q->where('products.name', 'LIKE', '%'.$keyword.'%')
+                      ->orWhere('products.product_content', 'LIKE', '%'.$keyword.'%');
+            });
         }
         
 

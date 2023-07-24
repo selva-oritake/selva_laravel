@@ -9,7 +9,7 @@
 <body>
   <header>
     <h2>商品カテゴリ詳細</h2>
-    <input type="button" value="一覧へ戻る" onclick="location.href='product_category_list'">
+    <input type="button" value="一覧へ戻る" onclick="location.href='{{ $url }}'">
   </header>
   <div>
     <form action="" method="POST">
@@ -25,7 +25,7 @@
           </tr>
           <tr>
             <td>商品小カテゴリ</td>
-            <td>{{ $result2[0]['name'] }}</td>
+            <td>{{ $result2[0]['name'] ?? ''}}</td>
           </tr>
           @for ($i = 2; $i <= 10; $i++)
             <tr>
@@ -35,7 +35,7 @@
           @endfor
         </table>
         <div class="btn">
-          <input type="button" value="編集" onclick="location.href='product_category_edit'">
+          <input type="button" value="編集" onclick="location.href='product_category_edit?id={{ $currentId }}'">
           <input type="submit" value="削除">
         </div>
     </form>

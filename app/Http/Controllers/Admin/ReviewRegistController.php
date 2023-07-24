@@ -29,6 +29,11 @@ class ReviewRegistController extends Controller
             'comment' => 'required|max:500',
         ],
         [
+            'product.required' => '＊商品は必須項目です',
+            'product.exists' => '＊無効な商品が選択されました',
+            'evaluation.required' => '＊評価は必須項目です',
+            'evaluation.integer' => '＊無効な評価が選択されました',
+            'evaluation.between' => '＊無効な評価が選択されました',
             'comment.required' => '＊商品コメントは必須項目です',
             'comment.max' => '＊商品コメントは500文字以内で入力してください',
 

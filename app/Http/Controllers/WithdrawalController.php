@@ -20,7 +20,7 @@ class WithdrawalController extends Controller
 
         $user->delete();
 
-        Auth::logout();
+        Auth::logout('web');
 
         return view('index');
     }

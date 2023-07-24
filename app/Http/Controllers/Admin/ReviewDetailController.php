@@ -17,6 +17,7 @@ class ReviewDetailController extends Controller
     {
         
         $inputs = $request->session()->get('inputs');
+        $url = session('url');
 
         if(request()->has('id')){
             $currentId = request()->query('id');
@@ -56,7 +57,7 @@ class ReviewDetailController extends Controller
         $sub_category = ProductSubcategory::where('id', $result['product_subcategory_id'])->value('name');
 
           
-        return view('admin/review_detail', compact('currentId', 'result', 'category', 'sub_category', 'avg_evaluation', 'avg_stars', 'review'));
+        return view('admin/review_detail', compact('currentId', 'result', 'category', 'sub_category', 'avg_evaluation', 'avg_stars', 'review', 'url'));
     }
 
     public function delete(Request $request)

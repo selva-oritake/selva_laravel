@@ -14,13 +14,14 @@ class MemberDetailController extends Controller
     //入力フォーム
     public function index(Request $request)
     {
-        
+        $url = session('url');
+
         $currentId = request()->query('id');
         $query = Member::query();
         $query->where('id', $currentId);
         $result = $query->get()->first();;
 
-        return view('admin/member_detail', compact('result', 'currentId'));
+        return view('admin/member_detail', compact('result', 'currentId', 'url'));
     }
 
     public function delete(Request $request)

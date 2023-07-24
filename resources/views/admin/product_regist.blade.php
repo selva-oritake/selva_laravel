@@ -12,10 +12,11 @@
   <header>
     @if (isset($isEdit) && $isEdit)
       <h2>商品編集</h2>
+      <input type="button" value="一覧へ戻る" onclick="location.href='{{ $url }}'">
     @else
       <h2>商品登録</h2>
+      <input type="button" value="一覧へ戻る" onclick="location.href='product_list'">
     @endif
-    <input type="button" value="一覧へ戻る" onclick="location.href='product_list'">
   </header>
   <div>
     @if (isset($isEdit) && $isEdit)
@@ -51,12 +52,12 @@
               <select name="sub_category" id="sub_category">
                 <option value="">サブカテゴリを選択してください</option>
               </select>
-              @error('category')
-                <p class="error">＊カテゴリは必須項目です</p>
-              @enderror
-              @error('sub_category')
-                <p class="error">＊サブカテゴリは必須項目です</p>
-              @enderror
+              @foreach ($errors->get('category') as $message)
+                <p class="error">{{ $message }}</p>
+              @endforeach
+              @foreach ($errors->get('sub_category') as $message)
+                <p class="error">{{ $message }}</p>
+              @endforeach
             </td>
           </tr>
           <tr>
@@ -168,12 +169,12 @@
               <select name="sub_category" id="sub_category">
                 <option value="">サブカテゴリを選択してください</option>
               </select>
-              @error('category')
-                <p class="error">＊カテゴリは必須項目です</p>
-              @enderror
-              @error('sub_category')
-                <p class="error">＊サブカテゴリは必須項目です</p>
-              @enderror
+              @foreach ($errors->get('category') as $message)
+                <p class="error">{{ $message }}</p>
+              @endforeach
+              @foreach ($errors->get('sub_category') as $message)
+              <p class="error">{{ $message }}</p>
+              @endforeach
             </td>
           </tr>
           <tr>
@@ -182,11 +183,11 @@
               <p>写真1</p>
               <div id="preview1">
                 @if(isset($inputs['path1']))
-                <img src="{{ asset($inputs['path1'] ?? old('path1', null)) }}" width="200">
+                <img src="{{ asset($inputs['path1']) }}" width="200">
                 @endif
               </div>
               <input id="uploadInput1" type="file" style="display: none;">
-              <input type="hidden" id="path1" name="path1" value="{{ $inputs['path1'] ?? old('path1', null) }}">
+              <input type="hidden" id="path1" name="path1" value="{{ $inputs['path1'] ?? '' }}">
               <button id="imageUpload1" type="button" onclick="selectFile(1)">アップロード</button>
             </td>
           </tr>
@@ -196,11 +197,11 @@
               <p>写真2</p>
               <div id="preview2">
                 @if(isset($inputs['path2']))
-                <img src="{{ asset($inputs['path2'] ?? old('path2', null)) }}" width="200">
+                <img src="{{ asset($inputs['path2']) }}" width="200">
                 @endif
               </div>
               <input id="uploadInput2" type="file" style="display: none;">
-              <input type="hidden" id="path2" name="path2" value="{{ $inputs['path2'] ?? old('path2', null) }}">
+              <input type="hidden" id="path2" name="path2" value="{{ $inputs['path2'] ?? '' }}">
               <button id="imageUpload2" type="button" onclick="selectFile(2)">アップロード</button>
             </td>
           </tr>
@@ -210,11 +211,11 @@
               <p>写真3</p>
               <div id="preview3">
                 @if(isset($inputs['path3']))
-                <img src="{{ asset($inputs['path3'] ?? old('path3', null)) }}" width="200">
+                <img src="{{ asset($inputs['path3']) }}" width="200">
                 @endif
               </div>
               <input id="uploadInput3" type="file" style="display: none;">
-              <input type="hidden" id="path3" name="path3" value="{{ $inputs['path3'] ?? old('path3', null) }}">
+              <input type="hidden" id="path3" name="path3" value="{{ $inputs['path3'] ?? '' }}">
               <button id="imageUpload3" type="button" onclick="selectFile(3)">アップロード</button>
             </td>
           </tr>
@@ -224,11 +225,11 @@
               <p>写真4</p>
               <div id="preview4">
                 @if(isset($inputs['path4']))
-                <img src="{{ asset($inputs['path4'] ?? old('path4', null)) }}" width="200">
+                <img src="{{ asset($inputs['path4']) }}" width="200">
                 @endif
               </div>
               <input id="uploadInput4" type="file" style="display: none;">
-              <input type="hidden" id="path4" name="path4" value="{{ $inputs['path4'] ?? old('path4', null) }}">
+              <input type="hidden" id="path4" name="path4" value="{{ $inputs['path4'] ?? '' }}">
               <button id="imageUpload4" type="button" onclick="selectFile(4)">アップロード</button>
             </td>
           </tr>

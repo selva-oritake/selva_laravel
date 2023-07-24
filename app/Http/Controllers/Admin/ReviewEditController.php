@@ -18,6 +18,7 @@ class ReviewEditController extends Controller
 
         // セッションからデータを取得
         $inputs = $request->session()->get('inputs');
+        $url = session('url');
 
         $products = Product::all();
         
@@ -36,7 +37,7 @@ class ReviewEditController extends Controller
         $request->session()->put('currentId', $currentId);
         $request->session()->put('product', $product);
 
-        return view('admin/review_regist', compact('products', 'product', 'result', 'inputs', 'isEdit', 'currentId'));
+        return view('admin/review_regist', compact('products', 'product', 'result', 'inputs', 'isEdit', 'currentId', 'url'));
     }
 
     public function post(Request $request)
@@ -49,6 +50,9 @@ class ReviewEditController extends Controller
             'comment' => 'required|max:500',
         ],
         [
+            'evaluation.required' => '＊評価は必須項目です',
+            'evaluation.integer' => '＊無効な評価が選択されました',
+            'evaluation.between' => '＊無効な評価が選択されました',
             'comment.required' => '＊商品コメントは必須項目です',
             'comment.max' => '＊商品コメントは500文字以内で入力してください',
 
@@ -58,7 +62,8 @@ class ReviewEditController extends Controller
         $request->session()->put('inputs', $request->all());
         $inputs = $request;
 
-        return redirect()->action("Admin\ReviewEditController@check");
+        $id = $request->query('id');
+        return redirect()->action('Admin\ReviewEditController@check', ['id' => $id]);
     }
 
 
@@ -71,6 +76,7 @@ class ReviewEditController extends Controller
         $inputs = $request->session()->get('inputs');
         $currentId = $request->session()->get('currentId');
         $product = $request->session()->get('product');
+        $url = session('url');
 
         //総合評価
         $query = Review::query();
@@ -93,7 +99,8 @@ class ReviewEditController extends Controller
             $avg_stars = "";
         }
 
-        return view('admin/review_regist_check', compact('inputs', 'currentId', 'isEdit', 'product', 'avg_evaluation', 'avg_stars'));
+        $id = $request->query('id');
+        return view('admin/review_regist_check', compact('inputs', 'currentId', 'isEdit', 'product', 'avg_evaluation', 'avg_stars', 'url', 'id'));
     }
     
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use App\ProductCategory;
 use App\ProductSubcategory;
+use Illuminate\Support\Facades\Validator;
 
 
 class ProductEditController extends Controller
@@ -18,6 +19,7 @@ class ProductEditController extends Controller
 
         // セッションからデータを取得
         $inputs = $request->session()->get('inputs');
+        $url = session('url');
 
         $categories = ProductCategory::all();
         $sub_categories = ProductSubcategory::all();
@@ -34,21 +36,45 @@ class ProductEditController extends Controller
 
         $request->session()->put('currentId', $currentId);
 
-        return view('admin/product_regist', compact('result', 'inputs', 'isEdit', 'currentId', 'categories', 'sub_categories'));
+        return view('admin/product_regist', compact('result', 'inputs', 'isEdit', 'currentId', 'categories', 'sub_categories', 'url'));
     }
 
     public function post(Request $request)
     {
         $request->session()->put('inputs', $request->all());
         $inputs = $request->all();
-         //バリデーション
+        
+        //バリデーション
+        Validator::extend('valid_category', function ($attribute, $value, $parameters, $validator) {
+            // $valueには入力値が渡される
+            // ここで$categoryがproduct_categoriesテーブルのidカラムに存在するか確認
+            $category = (int) $value;
+        
+            // product_categoriesテーブルに$idが存在するかをチェック
+            return \App\ProductCategory::where('id', $category)->exists();
+        });
+        Validator::extend('valid_sub_category', function ($attribute, $value, $parameters, $validator) {
+            // $valueには入力値が渡される
+            // ここで$subCategoryがproduct_subcategoriesテーブルのidカラムに存在するか確認
+            $category = (int) $validator->getData()['category'];
+            $subCategory = (int) $value;
+        
+            return \App\ProductSubcategory::where('product_category_id', $category)
+                                          ->where('id', $subCategory)
+                                          ->exists();
+        });
+
         $request->validate([
             'product_name' => 'required|max:100',
-            'category' => 'required|integer|between:1,5',
-            'sub_category' => 'required|integer' . ($request->category == 1 ? '|between:1,5' : ($request->category == 2 ? '|between:6,10' : ($request->category == 3 ? '|between:11,15' : ($request->category == 4 ? '|between:16,20' : '|between:21,25')))),
+            'category' => 'required|valid_category',
+            'sub_category' => 'required|valid_sub_category',
             'product_content' => 'required|max:500',
         ],
         [
+            'category.required' => '＊カテゴリは必須項目です',
+            'category.valid_category' => '＊無効なカテゴリが選択されました',
+            'sub_category.required' => '＊サブカテゴリは必須項目です',
+            'sub_category.valid_sub_category' => '＊無効なサブカテゴリが選択されました',
             'product_name.required' => '＊商品名は必須項目です',
             'product_name.max' => '＊商品名は100文字以内で入力してください',
             'product_content.required' => '＊商品説明は必須項目です',
@@ -60,7 +86,8 @@ class ProductEditController extends Controller
         $request->session()->put('inputs', $request->all());
         $inputs = $request;
 
-        return redirect()->action("Admin\ProductEditController@check");
+        $id = $request->query('id');
+        return redirect()->action('Admin\ProductEditController@check', ['id' => $id]);
     }
 
 
@@ -72,11 +99,13 @@ class ProductEditController extends Controller
         // セッションからデータを取得
         $inputs = $request->session()->get('inputs');
         $currentId = $request->session()->get('currentId');
+        $url = session('url');
+
         $category = ProductCategory::where('id', $inputs['category'])->value('name');
         $sub_category = ProductSubcategory::where('id', $inputs['sub_category'])->value('name');
 
-
-        return view('admin/product_regist_check', compact('inputs', 'currentId', 'isEdit', 'category', 'sub_category'));
+        $id = $request->query('id');
+        return view('admin/product_regist_check', compact('inputs', 'currentId', 'isEdit', 'category', 'sub_category', 'url', 'id'));
     }
     
 

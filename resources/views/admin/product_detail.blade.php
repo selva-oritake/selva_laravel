@@ -9,7 +9,7 @@
 <body>
   <header>
     <h2>商品詳細</h2>
-    <input type="button" value="一覧へ戻る" onclick="location.href='product_list'">
+    <input type="button" value="一覧へ戻る" onclick="location.href='{{ $url }}'">
   </header>
     
   <div>
@@ -65,7 +65,7 @@
             </td>
           </tr>
           <tr>
-            <td style ="vertical-align: top;">商品説明</td>
+            <td style ="vertical-align: top; width: 100px;">商品説明</td>
             <td>
               <span>{!! nl2br(e($result['product_content'])) !!}</span>
             </td>
@@ -77,7 +77,6 @@
           <span>総合評価</span>
           <span>{{ $avg_stars }}{{ $avg_evaluation }}</span>
         </div>
-
         @foreach ($reviews as $review)
           <div style="border-bottom: 1px solid #000; padding: 10px;">
             <table>
@@ -115,10 +114,14 @@
           </div>
         @endforeach
 
+        @if ($reviews->isEmpty())
+        <p>レビューはありません</p>
+        @endif
+
         {{ $reviews->appends(request()->query())->links()}}
 
         <div class="btn">
-          <input type="button" value="編集" onclick="location.href='product_edit'">
+          <input type="button" value="編集" onclick="location.href='product_edit?id={{ $currentId }}'">
           <input type="submit" value="削除">
         </div>
     </form>

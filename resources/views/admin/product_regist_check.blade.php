@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>商品情報確認画面</title>
-<link rel="stylesheet" href="member_regist_check.css">
+<link rel="stylesheet" href="">
 
 </head>
 <body>
   @if (isset($isEdit) && $isEdit)
     <header>
-      <h2>商品カテゴリ編集確認</h2>
-      <input type="button" value="一覧へ戻る" onclick="location.href='product_category_list'">
+      <h2>商品編集確認</h2>
+      <input type="button" value="一覧へ戻る" onclick="location.href='{{ $url }}'">
     </header>
     <div>
       <form action="" method="POST">
       @csrf
-      <table>
+      <table style ="vertical-align: top;">
           <tr>
             <td>ID</td>
             <td>{{ $currentId }}</td>
@@ -65,7 +65,7 @@
             </td>
           </tr>
           <tr>
-            <td style ="vertical-align: top;">商品説明</td>
+            <td style ="vertical-align: top; width: 100px;">商品説明</td>
             <td>
               <span>{!! nl2br(e($inputs['product_content'])) !!}</span>
             </td>
@@ -73,19 +73,19 @@
         </table>
         <div class="btn">
           <input  name="complete_btn" type="submit" value="編集完了">
-          <input name="prev_btn" type="button" value="前に戻る" onclick="location.href='product_edit'">
+          <input name="prev_btn" type="button" value="前に戻る" onclick="location.href='product_edit?id={{ $id }}'">
         </div>
       </form>
     </div>
   @else
     <header>
       <h2>商品登録確認</h2>
-      <input type="button" value="一覧へ戻る" onclick="location.href='product_category_list'">
+      <input type="button" value="一覧へ戻る" onclick="location.href='product_list'">
     </header>
     <div>
       <form action="" method="POST">
         @csrf
-        <table>
+        <table style ="table-layout: auto;">
           <tr>
             <td>ID</td>
             <td>登録後に自動採番</td>

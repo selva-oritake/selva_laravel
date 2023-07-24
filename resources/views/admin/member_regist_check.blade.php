@@ -49,7 +49,7 @@
         </div>
   
         <div class="btn"><input  name="complete_btn" type="submit" value="編集完了"></div>
-        <div class="btn"><input name="prev_btn" type="button" value="前に戻る" onclick="location.href='member_edit'"></div>
+        <div class="btn"><input name="prev_btn" type="button" value="前に戻る" onclick="location.href='member_edit?id={{ $id }}'"></div>
   
       </form>
   
@@ -57,7 +57,7 @@
   @else
     <header>
       <h2>会員登録</h2>
-      <input type="button" value="一覧へ戻る" onclick="location.href='member_list'">
+      <input type="button" value="一覧へ戻る" onclick="location.href='{{ $url }}'">
     </header>
     <div class="member_regist_check">
       <span>ID</span>

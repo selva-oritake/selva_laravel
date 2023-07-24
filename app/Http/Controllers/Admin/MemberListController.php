@@ -16,6 +16,9 @@ class MemberListController extends Controller
         $request->session()->forget('inputs');
 
         $user = Auth::user('admin');
+        
+        $url = url()->full();
+        session(['url' => $url]);
 
         $query = Member::query();
 
@@ -64,6 +67,8 @@ class MemberListController extends Controller
         }
     
         $members = $query->paginate(10);
+
+        
 
         return view('admin/member_list', compact('user', 'members'));
     }

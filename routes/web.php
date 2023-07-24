@@ -25,7 +25,7 @@ Route::get('/index', 'IndexController@index');
 
 Route::post('/index', 'ProductRegistController@regist');
 
-Route::get('/login', 'LoginController@index');
+Route::get('/logout', 'Auth\LogoutController@logout');
 
 Route::get('/password/resetsent', 'ResetSentController@index');
 
@@ -93,6 +93,8 @@ Route::get('/myreview_delete', 'MyreviewDeleteController@index')->middleware('au
 
 Route::delete('/myreview_delete', 'MyreviewDeleteController@delete')->name('MyreviewDelete')->middleware('auth');
 
+Auth::routes();
+
 use App\Http\Controllers\Admin;
 
 //管理画面
@@ -111,7 +113,7 @@ Route::prefix('admin')->namespace('Admin')->group(function() {
 
 Route::prefix('admin')->namespace('Admin')->middleware('auth.admin:admin')->group(function () {
     
-    Route::get('/member_list', [Admin\MemberListController::class, 'index']);
+    Route::get('/member_list', 'MemberListController@index');
 
     Route::get('/index', 'IndexController@index')->name('admin.index');
 
@@ -206,6 +208,6 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth.admin:admin')->grou
 
 
 
-Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -9,7 +9,7 @@
 <body>
   <header>
     <h2>会員詳細</h2>
-    <input type="button" value="一覧へ戻る" onclick="location.href='member_list'">
+    <input type="button" value="一覧へ戻る" onclick="location.href='{{ $url }}'">
   </header>
   <div>
     <span>ID</span>

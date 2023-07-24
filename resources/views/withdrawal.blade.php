@@ -9,14 +9,8 @@
   <header>
     <form action="" method="post">
       <div class="header_button">
-          <input type="button" value="トップに戻る" onclick="location.href='/index'">
-          <input type="button" class="dropdown-item" value="ログアウト" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> 
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-          </form>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-          </form> 
+        <input type="button" value="トップに戻る" onclick="location.href='/index'">
+        <input type="button" value="ログアウト" onclick="location.href='/logout'"> 
       </div>
     </form>
   </header>

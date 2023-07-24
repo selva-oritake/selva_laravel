@@ -10,10 +10,12 @@
   <header>
     @if (isset($isEdit) && $isEdit)
       <h2>商品カテゴリ編集</h2>
+      <input type="button" value="一覧へ戻る" onclick="location.href='{{ $url }}'">
     @else
       <h2>商品カテゴリ登録</h2>
+      <input type="button" value="一覧へ戻る" onclick="location.href='product_category_list'">
     @endif
-    <input type="button" value="一覧へ戻る" onclick="location.href='product_category_list'">
+    
   </header>
   <div>
     @if (isset($isEdit) && $isEdit)

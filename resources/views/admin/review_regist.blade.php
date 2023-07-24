@@ -9,10 +9,11 @@
   <header>
     @if (isset($isEdit) && $isEdit)
       <h2>商品レビュー編集</h2>
+      <input type="button" value="一覧へ戻る" onclick="location.href='{{ $url }}'">
     @else
       <h2>商品レビュー登録</h2>
+      <input type="button" value="一覧へ戻る" onclick="location.href='review_list'">
     @endif
-    <input type="button" value="一覧へ戻る" onclick="location.href='review_list'">
   </header>
   <div>
     @if (isset($isEdit) && $isEdit)
@@ -40,9 +41,9 @@
                     </option>
                   @endfor
               </select>
-              @error('evaluation')
-                <p class="error">＊評価を選択してください</p>
-              @enderror      
+              @foreach ($errors->get('evaluation') as $message)
+                <p class="error">{{ $message }}</p>
+              @endforeach       
             </td>
           </tr>
           <tr>
@@ -72,9 +73,9 @@
                     <option value="{{ $product->id }}" {{ old('product') == $product->id || (isset($inputs['product']) && $inputs['product'] == $product->id) ? 'selected' : '' }}>{{ $product->name }}</option>
                   @endforeach
               </select>
-              @error('product')
-                <p class="error">＊商品を選択してください</p>
-              @enderror
+              @foreach ($errors->get('product') as $message)
+                <p class="error">{{ $message }}</p>
+              @endforeach
             </td>
           </tr>
           <tr>
@@ -90,9 +91,9 @@
                     <option value="{{ $i }}" {{ old('evaluation') == $i || (isset($inputs['evaluation']) && $inputs['evaluation'] == $i) ? 'selected' : '' }}>{{ $i }}　　</option>
                   @endfor
               </select>
-              @error('evaluation')
-                <p class="error">＊評価を選択してください</p>
-              @enderror      
+              @foreach ($errors->get('evaluation') as $message)
+                <p class="error">{{ $message }}</p>
+              @endforeach      
             </td>
           </tr>
           <tr>

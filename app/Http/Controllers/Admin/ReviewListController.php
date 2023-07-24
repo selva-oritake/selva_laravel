@@ -12,6 +12,9 @@ class ReviewListController extends Controller
     public function index(Request $request)
     {
         $request->session()->forget('inputs');
+        
+        $url = url()->full();
+        session(['url' => $url]);
 
         $query = Review::query();
 
@@ -25,7 +28,9 @@ class ReviewListController extends Controller
         // フリーワード検索
         $keyword = $request->input('keyword');
         if ($keyword) {
-            $query->where('reviews.comment', 'LIKE', '%'.$keyword.'%');
+            $query->where(function ($q) use ($keyword) {
+                $q->where('reviews.comment', 'LIKE', '%'.$keyword.'%');
+            });
         }
         
 

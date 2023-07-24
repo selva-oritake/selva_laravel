@@ -14,6 +14,9 @@ class ProductCategoryListController extends Controller
     {
         $request->session()->forget('inputs');
 
+        $url = url()->full();
+        session(['url' => $url]);
+
         $query = ProductCategory::query();
 
         //検索機能
@@ -27,11 +30,13 @@ class ProductCategoryListController extends Controller
         $keyword = $request->input('keyword');
         if ($keyword) {
             $query->leftJoin('product_subcategories', 'product_categories.id', '=', 'product_subcategories.product_category_id')
-                  ->select('product_categories.*', 'product_subcategories.name as subcategory_name')
                   ->where(function ($q) use ($keyword) {
                 $q->where('product_categories.name', 'LIKE', '%'.$keyword.'%')
                   ->orWhere('product_subcategories.name', 'LIKE', '%'.$keyword.'%');
-            });
+            })
+            //検索後サブカテゴリ情報を除いて重複を除外
+            ->select('product_categories.id', 'product_categories.name', 'product_categories.created_at')
+            ->groupBy('product_categories.id', 'product_categories.name', 'product_categories.created_at');
         }
 
         // ソート順の取得

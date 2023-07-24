@@ -10,7 +10,7 @@
   @if (isset($isEdit) && $isEdit)
     <header>
       <h2>商品カテゴリ編集確認</h2>
-      <input type="button" value="一覧へ戻る" onclick="location.href='product_category_list'">
+      <input type="button" value="一覧へ戻る" onclick="location.href='{{ $url }}'">
     </header>
     <div>
       <form action="" method="POST">
@@ -37,7 +37,7 @@
         </table>
         <div class="btn">
           <input  name="complete_btn" type="submit" value="編集完了">
-          <input name="prev_btn" type="button" value="前に戻る" onclick="location.href='product_category_edit'">
+          <input name="prev_btn" type="button" value="前に戻る" onclick="location.href='product_category_edit?id={{ $id }}'">
         </div>
       </form>
     </div>

@@ -17,6 +17,7 @@ class ProductDetailController extends Controller
     {
         
         $inputs = $request->session()->get('inputs');
+        $url = session('url');
 
         if(request()->has('id')){
             $currentId = request()->query('id');
@@ -58,7 +59,7 @@ class ProductDetailController extends Controller
               ->select('reviews.*', 'members.nickname as nickname');
         $reviews = $query3->orderByDesc('id')->paginate(3);
           
-        return view('admin/product_detail', compact('currentId', 'result', 'category', 'sub_category', 'avg_evaluation', 'avg_stars', 'reviews'));
+        return view('admin/product_detail', compact('currentId', 'result', 'category', 'sub_category', 'avg_evaluation', 'avg_stars', 'reviews', 'url'));
     }
 
     public function delete(Request $request)

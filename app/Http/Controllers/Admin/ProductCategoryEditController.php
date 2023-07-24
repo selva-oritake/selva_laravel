@@ -17,6 +17,7 @@ class ProductCategoryEditController extends Controller
 
         // セッションからデータを取得
         $inputs = $request->session()->get('inputs');
+        $url = session('url');
         
         if(request()->has('id')){
             $currentId = request()->query('id');
@@ -33,7 +34,7 @@ class ProductCategoryEditController extends Controller
 
         $request->session()->put('currentId', $currentId);
 
-        return view('admin/product_category_regist', compact('result', 'result2', 'inputs', 'isEdit', 'currentId'));
+        return view('admin/product_category_regist', compact('result', 'result2', 'inputs', 'isEdit', 'currentId', 'url'));
     }
 
     public function post(Request $request)
@@ -66,14 +67,15 @@ class ProductCategoryEditController extends Controller
             'sub_category8.max' => '＊小カテゴリは20文字以内で入力してください',
             'sub_category9.max' => '＊小カテゴリは20文字以内で入力してください',
             'sub_category10.max' => '＊小カテゴリは20文字以内で入力してください',
-            'sub_categories.required_without_all' => 'sub_categoriesは一つ以上入力してください。'
+            'sub_categories.required_without_all' => '＊小カテゴリは一つ以上入力してください'
         ]);
 
         // データをセッションに保存
         $request->session()->put('inputs', $request->all());
         $inputs = $request;
 
-        return redirect()->action("Admin\ProductCategoryEditController@check");
+        $id = $request->query('id');
+        return redirect()->action('Admin\ProductCategoryEditController@check', ['id' => $id]);
     }
 
 
@@ -85,9 +87,10 @@ class ProductCategoryEditController extends Controller
         // セッションからデータを取得
         $inputs = $request->session()->get('inputs');
         $currentId = $request->session()->get('currentId');
+        $url = session('url');
 
-
-        return view('admin/product_category_regist_check', compact('inputs', 'currentId', 'isEdit'));
+        $id = $request->query('id');
+        return view('admin/product_category_regist_check', compact('inputs', 'currentId', 'isEdit', 'url', 'id'));
     }
     
 

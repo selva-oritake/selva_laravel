@@ -11,6 +11,7 @@ class ProductCategoryDetailController extends Controller
 {
     public function index(Request $request)
     {
+        $url = session('url');
         
         $currentId = request()->query('id');
         $query = ProductCategory::query();
@@ -23,7 +24,7 @@ class ProductCategoryDetailController extends Controller
 
         $request->session()->put('currentId', $currentId);
 
-        return view('admin/product_category_detail', compact('result', 'result2', 'currentId'));
+        return view('admin/product_category_detail', compact('result', 'result2', 'currentId', 'url'));
     }
 
     public function delete(Request $request)

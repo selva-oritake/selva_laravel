@@ -10,10 +10,12 @@
   <header>
     @if (isset($isEdit) && $isEdit)
       <h2>会員編集</h2>
+      <input type="button" value="一覧へ戻る" onclick="location.href='{{ $url }}'">
     @else
       <h2>会員登録</h2>
+      <input type="button" value="一覧へ戻る" onclick="location.href='member_list'">
     @endif
-    <input type="button" value="一覧へ戻る" onclick="location.href='member_list'">
+    
   </header>
   <div class="member_regist_form">
     @if (isset($isEdit) && $isEdit)
